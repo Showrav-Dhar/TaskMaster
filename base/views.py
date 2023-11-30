@@ -14,3 +14,5 @@ class TaskList(ListView):
 
 class TaskDetail(DetailView):
     model = Task#this class now search for templates that has name like - Task_detail.html
+    context_object_name = 'task'
+    template_name = 'base/task.html'
