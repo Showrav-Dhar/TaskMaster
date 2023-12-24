@@ -4,7 +4,7 @@ from django.shortcuts import render
 #as we are doing class based view we can remove the HttpResponse instead of that we will use the following line 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy#redirect user sucessfully to a different page
 from .models import Task
 
@@ -31,4 +31,10 @@ class TaskCreate(CreateView):#automatically created form and used the data from 
 class TaskUpdate(UpdateView):
     model = Task
     fields = '__all__'
+    success_url = reverse_lazy('tasks')
+
+class DeleteView(DeleteView):
+    #this view looks for a template which name ends with _confirm_delete.html
+    model = Task
+    context_object_name = 'task' #tasks
     success_url = reverse_lazy('tasks')
