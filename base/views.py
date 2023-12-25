@@ -8,6 +8,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy#redirect user sucessfully to a different page
 from django.contrib.auth.views import LoginView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Task
 
 
@@ -22,7 +24,7 @@ class CustomLoginView(LoginView):
 
 
 
-class TaskList(ListView): 
+class TaskList(LoginRequiredMixin, ListView): 
     model = Task#this class now search for templates that has name like - Task_list.html
     context_object_name = 'tasks'
 
