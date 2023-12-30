@@ -1,3 +1,5 @@
+{% extends 'base/main.html' %}
+{% block content %}
 
 {% if request.user.is_authenticated %}
   <p>{{request.user}}</p><!-- Shows the name of the currently logged in user -->
@@ -8,18 +10,13 @@
 
 <hr>
 <h1>My To Do List</h1>
-<a href="{% url 'task-create' %}">Add Task</a>
 
+<a href="{% url 'task-create' %}">Add Task</a>
 
 <form method='get'>
   <input type='text' name='search-area' value="{{search_input}}">
   <input type='submit' value='Search'>
-
 </form>
-
-
-
-
 <table>
     <tr>
         <th>Items</th>
@@ -36,3 +33,5 @@
       <h3>No Items in List</h3>
     {% endfor %}
 </table>
+{% endblock content %}
+
