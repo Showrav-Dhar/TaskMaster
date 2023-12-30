@@ -1,37 +1,53 @@
 {% extends 'base/main.html' %}
 {% block content %}
 
-{% if request.user.is_authenticated %}
-  <p>{{request.user}}</p><!-- Shows the name of the currently logged in user -->
+<div class="header-bar">
+  <div>
+    <h1>Hello {{request.user|title}}</h1>
+    <h3 style="margin: 0;">You Have <i>{{count}}</i> incomplete task{{ count|pluralize:"s" }}</h3>
+  </div>
+  {% if request.user.is_authenticated %}
+  <!-- <p>{{request.user}}</p>Shows the name of the currently logged in user -->
   <a href="{% url 'logout' %}">Logout</a>
-{% else  %}
+  {% else %}
   <a href="{% url 'login' %}">Login</a>
-{% endif %}
+  {% endif %}
+</div>
 
-<hr>
-<h1>My To Do List</h1>
 
-<a href="{% url 'task-create' %}">Add Task</a>
-
+<!-- <a href="{% url 'task-create' %}">Add Task</a>
 <form method='get'>
   <input type='text' name='search-area' value="{{search_input}}">
   <input type='submit' value='Search'>
-</form>
+</form> -->
+
+<div class="task-items-wrapper">
+  {% for task in tasks %}
+    <div class="task-wrapper"> 
+      {% if task.complete %}
+        <div class="task-title">
+          <div class="task-complete-icon"></div>
+          <i><s><a href="{% url 'task-update' task.id %}">{{ task.title }}</a></s></i>
+        </div>
+
+      {% else %}
+      <div class="task-title">
+        <div class="task-incomplete-icon"></div>
+        <a href="{% url 'task-update' task.id %}">{{ task.title }}</a>
+      </div>
+      {% endif %}
+    </div>
+  {% empty %}
+  <h3>No Items in List</h3>
+  {% endfor %}
+</div>
+
+
+
 <table>
-    <tr>
-        <th>Items</th>
-        <th></th>
-    </tr>
-    {% for task in tasks %}
-      <tr>
-        <td>{{task.title}}</td>
-        <!-- <td><a href="{% url 'task' task.id %}">View</a></td> -->
-        <td><a href="{% url 'task-update' task.id %}">Edit </a></td>
-        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
-      </tr>
-      {% empty %}
-      <h3>No Items in List</h3>
-    {% endfor %}
+  <tr>
+    <th>Items</th>
+    <th></th>
+  </tr>
 </table>
 {% endblock content %}
-
