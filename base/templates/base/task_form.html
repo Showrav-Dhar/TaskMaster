@@ -1,15 +1,22 @@
 {% extends 'base/main.html' %}
 {% block content %}
-<h3>Task Form</h3>
-<a href="{% url 'tasks' %}">Go Back</a>
-<form method="post" action="">
-    <!-- crucial security measure to protect against Cross-Site Request Forgery (CSRF) attacks. -->
-    {% csrf_token %}
-    <!-- In Django, {{ form }} is a template tag used to render a form within an HTML template. -->
-    <!-- The {{ form.as_p }} tag renders the form fields as a paragraph for basic formatting. -->
-    {{form.as_p}} 
-    <input type="submit" value="Submit">
-</form>
+
+<div class="header-bar">
+    <a href="{% url 'tasks' %}" style="color: black;">&#8592;Back</a>
+</div>
+
+
+<div class="card-body">
+    <form method="post" action="">
+        <!-- crucial security measure to protect against Cross-Site Request Forgery (CSRF) attacks. -->
+        {% csrf_token %}
+        <!-- In Django, {{ form }} is a template tag used to render a form within an HTML template. -->
+        <!-- The {{ form.as_p }} tag renders the form fields as a paragraph for basic formatting. -->
+        {{form.as_p}} 
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+
 {% endblock content %}
 
 
