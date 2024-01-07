@@ -1,4 +1,5 @@
-This is to list app
+TaskMaster
+
 ## Core Functionality - 
   - User Authentication
   - Task Add
